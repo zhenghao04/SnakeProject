@@ -1,0 +1,25 @@
+# Visual Studio workspace and generated build output
+.vs/
+MSVS/.vs/
+MSVS/Debug/
+MSVS/Release/
+MSVS/x64/
+MSVS/snake1/
+
+# Runtime-created local settings
+MSVS/user/
+
+# Visual Studio per-user files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Native build artifacts
+*.obj
+*.pdb
+*.idb
+*.ilk
+*.tlog
+*.log
+*.recipe

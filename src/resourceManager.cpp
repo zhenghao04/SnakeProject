@@ -3,7 +3,7 @@
 #include <Windows.h>
 
 static const char *FONT_PATHS[] = {
-	"assets\\NotoSansSC-VF.ttf",
+	"assets\\FusionPixel-zh_hans.ttf",
 	"C:\\Windows\\Fonts\\msyh.ttc",
 	"C:\\Windows\\Fonts\\simhei.ttf",
 	"C:\\Windows\\Fonts\\simsun.ttc",
@@ -81,6 +81,10 @@ bool ResourceManager::LoadFont()
 		m_Font = TTF_OpenFont(FONT_PATHS[i], 60);
 		if (m_Font)
 		{
+			if (i == 0)
+			{
+				TTF_SetFontStyle(m_Font, TTF_STYLE_BOLD);
+			}
 			LOG_INFO("Loaded font: %s", FONT_PATHS[i]);
 			return true;
 		}

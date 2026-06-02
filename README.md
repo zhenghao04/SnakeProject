@@ -1,31 +1,31 @@
-# snake1 - An SDL2 based snake game
+# snake1 - 基于 SDL2 的贪吃蛇游戏
 
-**snake1** is a classic snake game written in _C++_ with _SDL2_ as multimedia backend.
+**snake1** 是一款使用 _C++_ 编写、以 _SDL2_ 作为多媒体后端的经典贪吃蛇游戏。
 
 <img src="https://habrastorage.org/webt/or/6-/_n/or6-_nko4hgztmhihnkxjw01e1e.gif" />
 
-## Features
+## 功能特点
 
-* windowed/fullscreen mode
-* changable and modifiable color scheme (you can even add your own)
-* adjustable game settings (initial snake length, game speed, field size, borderless mode)
-* two game modes - training and survival
+* 支持窗口模式和全屏模式
+* 可更改和自定义配色方案（也可以添加自己的方案）
+* 可调节游戏设置（蛇的初始长度、游戏速度、游戏区域大小、无边界模式）
+* 提供两种游戏模式：训练模式和生存模式
 
-## Build & Run
+## 构建与运行
 
-1. Clone it;
-2. Open the .sln in Visual Studio (I use 2015);
-3. Change configuration to x86;
-4. Build it;
-5. Copy the dll's from _".\external\lib\x86"_ to _".\MSVS\Debug\Output"_;
-6. Copy the _"assets"_ folder from _".\MSVS"_ to _".\MSVS\Debug\Output"_;
-7. Run it!
+1. 克隆本仓库；
+2. 在 Visual Studio 中打开 `.sln` 文件（原项目使用 Visual Studio 2015）；
+3. 将配置切换为 `x86`；
+4. 构建项目；
+5. 将 `.\external\lib\x86` 中的 DLL 文件复制到 `.\MSVS\Debug\Output`；
+6. 将 `.\MSVS` 下的 `assets` 文件夹复制到 `.\MSVS\Debug\Output`；
+7. 运行游戏。
 
-## ToDo
+## 待办事项
 
-* User profiles
-* Highscores
+* 用户档案
+* 最高分记录
 
-## Status
+## 状态
 
-Frozen :(
+已冻结 :(

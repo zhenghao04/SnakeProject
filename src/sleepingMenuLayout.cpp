@@ -80,19 +80,21 @@ void SleepingMenuLayout::Render(SDL_Renderer *renderer)
 bool SleepingMenuLayout::CreateLayout(SDL_Renderer *renderer)
 {
 	TTF_Font *font = Game::Instance().Resources().GetFont();
+	TTF_Font *titleFont = Game::Instance().Resources().GetTitleFont();
 	SDL_Color *textc = &Globals::COLOR_SCHEME->m_Text;
 	bool is4_3 = Globals::ASPECT_RATIO == ASPECT_RATIO_4_3;
 
 	float x = is4_3 ? 0.07f : 0.15f;
-	float scale = is4_3 ? 1.6f : 1.8f;
+	float scale = (float)(int)((is4_3 ? 1.6f : 1.8f) * Globals::WINDOW_SCALE_FACTOR + 0.5f)
+		/ Globals::WINDOW_SCALE_FACTOR;
 
-	if (!m_UILabel[SLEEPING_MENU_UI_TITLE].Create("贪吃蛇！", font, textc, renderer, x, 0.4f, true, scale, TEXT_ANCHOR_MID_LEFT)
+	if (!m_UILabel[SLEEPING_MENU_UI_TITLE].Create("贪吃蛇！", titleFont, textc, renderer, x, 0.4f, true, scale, TEXT_ANCHOR_MID_LEFT)
 		|| !m_UILabel[SLEEPING_MENU_UI_START].Create("按空格键开始", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
 		|| !m_UILabel[SLEEPING_MENU_UI_SETTINGS].Create("按 S 键打开设置", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
 		|| !m_UILabel[SLEEPING_MENU_UI_EXIT].Create("按 X 键退出", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
 		|| !m_UILabel[SLEEPING_MENU_UI_RESUME].Create("按空格键继续", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
 		|| !m_UILabel[SLEEPING_MENU_UI_RESTART].Create("按 R 键重新开始", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
-		|| !m_UILabel[SLEEPING_MENU_UI_AUTHOR].Create("作者：Henadzi Matuts", font, textc, renderer,
+		|| !m_UILabel[SLEEPING_MENU_UI_AUTHOR].Create("欢迎您玩我的游戏", font, textc, renderer,
 			is4_3 ? 0.78f : 0.75f, is4_3 ? 0.31f : 0.3f, true, 0.35f))
 	{
 		return false;

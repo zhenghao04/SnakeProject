@@ -47,6 +47,7 @@ bool ResourceManager::LoadResources()
 void ResourceManager::UnloadResources()
 {
 	TTF_CloseFont(m_Font);
+	TTF_CloseFont(m_TitleFont);
 
 	DestroyColorSchemes();
 }
@@ -54,6 +55,11 @@ void ResourceManager::UnloadResources()
 TTF_Font* ResourceManager::GetFont()
 {
 	return m_Font;
+}
+
+TTF_Font* ResourceManager::GetTitleFont()
+{
+	return m_TitleFont;
 }
 
 ColorScheme* ResourceManager::FindColorScheme(char *name)
@@ -76,11 +82,21 @@ ColorScheme* ResourceManager::FindColorScheme(char *name)
 
 bool ResourceManager::LoadFont()
 {
+	m_Font = nullptr;
+	m_TitleFont = nullptr;
+
 	for (size_t i = 0; i < sizeof(FONT_PATHS) / sizeof(FONT_PATHS[0]); i++)
 	{
 		m_Font = TTF_OpenFont(FONT_PATHS[i], 60);
 		if (m_Font)
 		{
+			m_TitleFont = TTF_OpenFont(FONT_PATHS[i], 60);
+			if (!m_TitleFont)
+			{
+				TTF_CloseFont(m_Font);
+				m_Font = nullptr;
+				continue;
+			}
 			if (i == 0)
 			{
 				TTF_SetFontStyle(m_Font, TTF_STYLE_BOLD);

@@ -190,14 +190,16 @@ void MenuLayout::Render(SDL_Renderer *renderer)
 bool MenuLayout::CreateLayout(SDL_Renderer *renderer)
 {
 	TTF_Font *font = Game::Instance().Resources().GetFont();
+	TTF_Font *titleFont = Game::Instance().Resources().GetTitleFont();
 	SDL_Color *textc = &Globals::COLOR_SCHEME->m_Text;
 	SDL_Color *selectorc = &Globals::COLOR_SCHEME->m_ButtonSelector;
 	bool is4_3 = Globals::ASPECT_RATIO == ASPECT_RATIO_4_3;
 	
 	float x = is4_3 ? 0.07f : 0.13f;
-	float scale = is4_3 ? 1.6f : 1.8f;
+	float scale = (float)(int)((is4_3 ? 1.6f : 1.8f) * Globals::WINDOW_SCALE_FACTOR + 0.5f)
+		/ Globals::WINDOW_SCALE_FACTOR;
 
-	if (!m_UILabel[SLEEPING_MENU_UI_TITLE].Create("贪吃蛇！", font, textc,
+	if (!m_UILabel[SLEEPING_MENU_UI_TITLE].Create("贪吃蛇！", titleFont, textc,
 			renderer, x, 0.4f, true, scale, TEXT_ANCHOR_MID_LEFT))
 	{
 		return false;

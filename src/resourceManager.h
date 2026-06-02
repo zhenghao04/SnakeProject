@@ -19,6 +19,7 @@ public:
 	 * Returns font.
 	 */
 	TTF_Font* GetFont();
+	TTF_Font* GetTitleFont();
 
 	/**
 	 *
@@ -34,5 +35,6 @@ private:
 	void DestroyColorSchemes();
 
 	TTF_Font *m_Font;
+	TTF_Font *m_TitleFont;
 	ColorScheme *m_ColorSchemes;
 };

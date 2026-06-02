@@ -43,6 +43,8 @@ void Game::Initialize()
 	}
 	LOG_INFO("Initializing SDL...OK");
 
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
+
 	LOG_INFO("Initializing SDL_ttf...");
 	if (TTF_Init() == -1)
 	{

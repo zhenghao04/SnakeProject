@@ -18,8 +18,8 @@ public:
 		m_TimerStopped(true),
 		m_TimerHandicap(5000)
 	{
-		sprintf_s(m_ScoreText, "score: %03d", m_Score);
-		sprintf_s(m_DiemerText, "diemer: %03d", m_TimeLast / 1000);
+		sprintf_s(m_ScoreText, "得分：%03d", m_Score);
+		sprintf_s(m_DiemerText, "倒计时：%03d", m_TimeLast / 1000);
 	};
 
 	void Render(SDL_Renderer *renderer, SDL_Rect *viewport);
@@ -35,12 +35,12 @@ private:
 
 	/* scoring */
 	uint32_t m_Score;
-	char m_ScoreText[12];
+	char m_ScoreText[32];
 
 	/* timing for survival mode */
 	bool m_TimerStopped;
 	int m_TimeLast;
-	char m_DiemerText[12];
+	char m_DiemerText[32];
 	int m_TimerHandicap;
 
 	UILabel m_ScoreLabel, m_DiemerLabel;

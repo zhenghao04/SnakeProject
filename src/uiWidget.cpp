@@ -15,7 +15,7 @@ Texture::~Texture()
 	}
 }
 
-bool Texture::Create(char *text, TTF_Font *font, SDL_Color *rgba, SDL_Renderer *renderer)
+bool Texture::Create(const char *text, TTF_Font *font, SDL_Color *rgba, SDL_Renderer *renderer)
 {
 	if (m_Texture)
 	{
@@ -51,7 +51,7 @@ void Texture::Render(SDL_Renderer *renderer, SDL_Rect *dst)
 	}
 }
 
-bool UILabel::Create(char *text, TTF_Font *font, SDL_Color *rgba, SDL_Renderer *renderer,
+bool UILabel::Create(const char *text, TTF_Font *font, SDL_Color *rgba, SDL_Renderer *renderer,
 				float x, float y, bool isVisible, float scaleFactor, TextAnchor anchor)
 {
 	if (!m_Texture.Create(text, font, rgba, renderer))
@@ -113,7 +113,7 @@ bool UILabel::Create(char *text, TTF_Font *font, SDL_Color *rgba, SDL_Renderer *
 	return true;
 }
 
-void UILabel::SetText(char *text, TTF_Font *font)
+void UILabel::SetText(const char *text, TTF_Font *font)
 {
 	if (strcmp(text, m_Text))
 	{
@@ -163,7 +163,7 @@ bool UILabel::GetDimensions(SDL_Rect *dimensions)
 	return m_TextChanged ? false : true;
 }
 
-bool UIButton::Create(char *text, TTF_Font *font, SDL_Color *rgbaText, SDL_Color *rgbaSelector,
+bool UIButton::Create(const char *text, TTF_Font *font, SDL_Color *rgbaText, SDL_Color *rgbaSelector,
 				SDL_Renderer *renderer, float x, float y, bool isVisible,
 				pfnButtonEventHandler eventHandler, float scaleFactor, TextAnchor anchor)
 {
@@ -275,7 +275,7 @@ void UIButton::Render(SDL_Renderer *renderer)
 	}
 }
 
-void UIButton::SetText(char *text, TTF_Font *font)
+void UIButton::SetText(const char *text, TTF_Font *font)
 {
 	if (strcmp(text, m_Text))
 	{

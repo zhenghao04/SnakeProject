@@ -8,19 +8,19 @@ static const uint32_t AFFRONTS = 0;
 static const uint32_t NEUTRALS = 5;
 static const uint32_t CONGRATZ = 9;
 
-static char *dieMessage[DIE_MESSAGES_TOTAL] = {
-	"not bad. for a 6 year old girl",
-	"please do me a favor, drop it!",
-	"maybe it's just not for you?",
-	"even my cat can do better",
-	"and that's all you can do?",
-	"you can do better, keep going",
-	"well, you're not so hopeless",
-	"still not enough for me",
-	"you should try harder",
-	"that's a real talk!",
-	"yeah, show'em who's in charge",
-	"you gain my respect"
+static const char *dieMessage[DIE_MESSAGES_TOTAL] = {
+	"再练练，你可以做得更好",
+	"别急，再试一次",
+	"差一点，再来一局",
+	"节奏还可以更稳",
+	"这次有点可惜",
+	"继续保持，你在进步",
+	"不错，已经找到感觉了",
+	"再坚持一下",
+	"离高分不远了",
+	"这局很精彩",
+	"操作很漂亮",
+	"你赢得了我的尊重"
 };
 
 static UILayout* InGameYesButtonEventHandler(SDL_Event *event, GameScreen **newScreen, void *userData)
@@ -133,13 +133,13 @@ bool GameOverLayout::CreateLayout(SDL_Renderer *renderer)
 	SDL_Color *selectorc = &Globals::COLOR_SCHEME->m_ButtonSelector;
 
 	if (!m_UILabel[IN_GAME_UI_LABEL_DIE_MESSAGE].Create(dieMessage[0], font, textc, renderer, 0.5f, 0.6875f, true, 0.42f)
-		|| !m_UILabel[IN_GAME_UI_LABEL_TRY_AGAIN].Create("try again?", font, textc, renderer, 0.5f, 0.7875f, true, 0.42f))
+		|| !m_UILabel[IN_GAME_UI_LABEL_TRY_AGAIN].Create("再试一次？", font, textc, renderer, 0.5f, 0.7875f, true, 0.42f))
 	{
 		return false;
 	}
-	if (!m_UIButton[IN_GAME_UI_BUTTON_YES].Create("yes", font, textc, selectorc, renderer,
+	if (!m_UIButton[IN_GAME_UI_BUTTON_YES].Create("是", font, textc, selectorc, renderer,
 		0.45f, 0.8875f, true, InGameYesButtonEventHandler, 0.47f, TEXT_ANCHOR_MID_RIGHT)
-		|| !m_UIButton[IN_GAME_UI_BUTTON_NO].Create("no", font, textc, selectorc, renderer,
+		|| !m_UIButton[IN_GAME_UI_BUTTON_NO].Create("否", font, textc, selectorc, renderer,
 			0.56f, 0.8875f, true, InGameNoButtonEventHandler, 0.47f, TEXT_ANCHOR_MID_LEFT))
 	{
 		return false;

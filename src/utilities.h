@@ -75,4 +75,4 @@ public:
 #define LOG_ERR(format, ...) fprintf(Globals::LOG, "[%s] ERROR: "##format##"\n", Globals::Time(), __VA_ARGS__)
 #define LOG_FATAL(format, ...) fprintf(Globals::LOG, "[%s] FATAL: "##format##"\n", Globals::Time(), __VA_ARGS__)
 
-#define CRASH(cb) Utilities::CrashMessageBox("Ooops!", "The game just crashed.", cb);
+#define CRASH(cb) Utilities::CrashMessageBox("出错了！", "游戏发生错误，即将退出。", cb);

@@ -86,13 +86,13 @@ bool SleepingMenuLayout::CreateLayout(SDL_Renderer *renderer)
 	float x = is4_3 ? 0.07f : 0.15f;
 	float scale = is4_3 ? 1.6f : 1.8f;
 
-	if (!m_UILabel[SLEEPING_MENU_UI_TITLE].Create("snake !", font, textc, renderer, x, 0.4f, true, scale, TEXT_ANCHOR_MID_LEFT)
-		|| !m_UILabel[SLEEPING_MENU_UI_START].Create("press space to start", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
-		|| !m_UILabel[SLEEPING_MENU_UI_SETTINGS].Create("press s to settings", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
-		|| !m_UILabel[SLEEPING_MENU_UI_EXIT].Create("press x to win", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
-		|| !m_UILabel[SLEEPING_MENU_UI_RESUME].Create("press space to resume", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
-		|| !m_UILabel[SLEEPING_MENU_UI_RESTART].Create("press r to restart", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
-		|| !m_UILabel[SLEEPING_MENU_UI_AUTHOR].Create("by henadzi matuts", font, textc, renderer, 
+	if (!m_UILabel[SLEEPING_MENU_UI_TITLE].Create("贪吃蛇！", font, textc, renderer, x, 0.4f, true, scale, TEXT_ANCHOR_MID_LEFT)
+		|| !m_UILabel[SLEEPING_MENU_UI_START].Create("按空格键开始", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
+		|| !m_UILabel[SLEEPING_MENU_UI_SETTINGS].Create("按 S 键打开设置", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
+		|| !m_UILabel[SLEEPING_MENU_UI_EXIT].Create("按 X 键退出", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
+		|| !m_UILabel[SLEEPING_MENU_UI_RESUME].Create("按空格键继续", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
+		|| !m_UILabel[SLEEPING_MENU_UI_RESTART].Create("按 R 键重新开始", font, textc, renderer, 0.5f, 0.75f, false, 0.45f)
+		|| !m_UILabel[SLEEPING_MENU_UI_AUTHOR].Create("作者：Henadzi Matuts", font, textc, renderer,
 			is4_3 ? 0.78f : 0.75f, is4_3 ? 0.31f : 0.3f, true, 0.35f))
 	{
 		return false;

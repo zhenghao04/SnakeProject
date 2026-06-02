@@ -205,7 +205,7 @@ GameEvent ProfileLayout::Update(uint32_t elapsed)
 
 	if (profileName = profiles->GetCurrentProfileName())
 	{
-		sprintf_s(title, "profile : %s", profileName);
+		sprintf_s(title, "档案：%s", profileName);
 		m_UILabel[PROFILE_UI_LABEL_TITLE].SetText(title, font);
 
 		m_UIButton[PROFILE_UI_BUTTON_CHANGE].SetVisibility(true);
@@ -213,7 +213,7 @@ GameEvent ProfileLayout::Update(uint32_t elapsed)
 	}
 	else
 	{
-		m_UILabel[PROFILE_UI_LABEL_TITLE].SetText("profile management", font);
+		m_UILabel[PROFILE_UI_LABEL_TITLE].SetText("档案管理", font);
 		m_UIButton[PROFILE_UI_BUTTON_CHANGE].SetVisibility(false);
 		m_UIButton[PROFILE_UI_BUTTON_CHANGE].Select(false);
 
@@ -223,7 +223,7 @@ GameEvent ProfileLayout::Update(uint32_t elapsed)
 
 	if (!m_IsTextInputActive)
 	{
-		m_UIButton[PROFILE_UI_BUTTON_NEW].SetText("create", font);
+		m_UIButton[PROFILE_UI_BUTTON_NEW].SetText("创建档案", font);
 	}
 
 	if (!m_UIButton[m_SelectedButton].IsVisible())
@@ -261,19 +261,19 @@ bool ProfileLayout::CreateLayout(SDL_Renderer *renderer)
 	SDL_Color *textc = &Globals::COLOR_SCHEME->m_Text;
 	SDL_Color *selectorc = &Globals::COLOR_SCHEME->m_ButtonSelector;
 
-	if (!m_UILabel[PROFILE_UI_LABEL_TITLE].Create("profile management", 
+	if (!m_UILabel[PROFILE_UI_LABEL_TITLE].Create("档案管理",
 		font, textc, renderer, 0.5f, 0.125f, true, 0.75f))
 	{
 		return false;
 	}
 
-	if (!m_UIButton[PROFILE_UI_BUTTON_BACK].Create("back to menu", font, textc, selectorc,
+	if (!m_UIButton[PROFILE_UI_BUTTON_BACK].Create("返回菜单", font, textc, selectorc,
 		renderer, 0.5f, 0.875f, true, ProfileBackButtonEventHandler, 0.55f)
-		|| !m_UIButton[PROFILE_UI_BUTTON_CHANGE].Create("switch", font, textc, selectorc,
+		|| !m_UIButton[PROFILE_UI_BUTTON_CHANGE].Create("切换档案", font, textc, selectorc,
 			renderer, 0.5f, 0.375f, false, ProfileSwitchButtonEventHandler, 0.45f)
-		|| !m_UIButton[PROFILE_UI_BUTTON_NEW].Create("create", font, textc, selectorc,
+		|| !m_UIButton[PROFILE_UI_BUTTON_NEW].Create("创建档案", font, textc, selectorc,
 			renderer, 0.5f, 0.5f, true, ProfileCreateButtonEventHandler, 0.45f)
-		|| !m_UIButton[PROFILE_UI_BUTTON_DELETE].Create("delete", font, textc, selectorc,
+		|| !m_UIButton[PROFILE_UI_BUTTON_DELETE].Create("删除档案", font, textc, selectorc,
 			renderer, 0.5f, 0.625f, false, ProfileDeleteButtonEventHandler, 0.45f))
 	{
 		return false;

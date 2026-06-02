@@ -233,9 +233,9 @@ GameEvent SettingsLayout::Update(uint32_t elapsed)
 	m_UILabel[SETTINGS_UI_LABEL_SMOOTH].SetVisibility(m_Settings.m_SmoothMovement);
 	m_UILabel[SETTINGS_UI_LABEL_DISCRETE].SetVisibility(!m_Settings.m_SmoothMovement);
 	
-	m_UILabel[SETTINGS_UI_BUTTON_COLOR_SCHEME].SetText(m_Settings.m_ColorScheme, font);
+	m_UILabel[SETTINGS_UI_BUTTON_COLOR_SCHEME].SetText(Globals::ColorSchemeDisplayName(m_Settings.m_ColorScheme), font);
 	m_UILabel[SETTINGS_UI_BUTTON_RESOLUTION].SetText(resolution, font);
-	m_UILabel[SETTINGS_UI_LABEL_FULLSCREEN].SetText(m_Settings.m_Fullscreen ? "yes" : "windowed", font);
+	m_UILabel[SETTINGS_UI_LABEL_FULLSCREEN].SetText(m_Settings.m_Fullscreen ? "是" : "窗口模式", font);
 
 	if ((m_Settings.m_Fullscreen != Globals::FULLSCREEN)
 		|| (m_Settings.m_ResolutionWidth != Globals::SCREEN_WIDTH
@@ -272,31 +272,31 @@ bool SettingsLayout::CreateLayout(SDL_Renderer *renderer)
 	char resolution[10];
 	sprintf_s(resolution, "%dx%d", m_Settings.m_ResolutionWidth, m_Settings.m_ResolutionHeight);
 
-	if (!m_UILabel[SETTINGS_UI_LABEL_TITLE].Create("settings", font, textc, renderer, 0.5f, 0.125f, true, 0.75f)
-		|| !m_UILabel[SETTINGS_UI_LABEL_SMOOTH].Create("smooth", font, textc, renderer,
+	if (!m_UILabel[SETTINGS_UI_LABEL_TITLE].Create("设置", font, textc, renderer, 0.5f, 0.125f, true, 0.75f)
+		|| !m_UILabel[SETTINGS_UI_LABEL_SMOOTH].Create("平滑", font, textc, renderer,
 			0.53125f, 0.28125f, false, 0.45f, TEXT_ANCHOR_MID_LEFT)
-		|| !m_UILabel[SETTINGS_UI_LABEL_DISCRETE].Create("discrete", font, textc, renderer,
+		|| !m_UILabel[SETTINGS_UI_LABEL_DISCRETE].Create("离散", font, textc, renderer,
 			0.53125f, 0.28125f, false, 0.45f, TEXT_ANCHOR_MID_LEFT)
-		|| !m_UILabel[SETTINGS_UI_LABEL_COLOR_SCHEME].Create(m_Settings.m_ColorScheme, font, textc, renderer,
+		|| !m_UILabel[SETTINGS_UI_LABEL_COLOR_SCHEME].Create(Globals::ColorSchemeDisplayName(m_Settings.m_ColorScheme), font, textc, renderer,
 			0.53125f, 0.40625f, true, 0.45f, TEXT_ANCHOR_MID_LEFT)
 		|| !m_UILabel[SETTINGS_UI_LABEL_RESOLUTION].Create(resolution, font, textc, renderer,
 			0.53125f, 0.53125f, true, 0.45f, TEXT_ANCHOR_MID_LEFT)
-		|| !m_UILabel[SETTINGS_UI_LABEL_FULLSCREEN].Create(m_Settings.m_Fullscreen ? "yes" : "windowed", font, textc, renderer,
+		|| !m_UILabel[SETTINGS_UI_LABEL_FULLSCREEN].Create(m_Settings.m_Fullscreen ? "是" : "窗口模式", font, textc, renderer,
 			0.53125f, 0.65625f, true, 0.45f, TEXT_ANCHOR_MID_LEFT))
 	{
 		return false;
 	}
-	if (!m_UIButton[SETTINGS_UI_BUTTON_BACK].Create("back", font, textc, selectorc, renderer,
+	if (!m_UIButton[SETTINGS_UI_BUTTON_BACK].Create("返回", font, textc, selectorc, renderer,
 		0.46875f, 0.875f, true, SettingBackButtonEventHandler, 0.55f, TEXT_ANCHOR_MID_RIGHT)
-		|| !m_UIButton[SETTINGS_UI_BUTTON_APPLY].Create("apply", font, textc, selectorc, renderer,
+		|| !m_UIButton[SETTINGS_UI_BUTTON_APPLY].Create("应用", font, textc, selectorc, renderer,
 			0.53125f, 0.875f, false, SettingApplyButtonEventHandler, 0.55f, TEXT_ANCHOR_MID_LEFT)
-		|| !m_UIButton[SETTINGS_UI_BUTTON_MOVEMENT].Create("movement", font, textc, selectorc, renderer,
+		|| !m_UIButton[SETTINGS_UI_BUTTON_MOVEMENT].Create("移动方式", font, textc, selectorc, renderer,
 			0.46875f, 0.28125f, true, SettingMovementButtonEventHandler, 0.45f, TEXT_ANCHOR_MID_RIGHT)
-		|| !m_UIButton[SETTINGS_UI_BUTTON_COLOR_SCHEME].Create("color scheme", font, textc, selectorc, renderer,
+		|| !m_UIButton[SETTINGS_UI_BUTTON_COLOR_SCHEME].Create("配色方案", font, textc, selectorc, renderer,
 			0.46875f, 0.40625f, true, SettingColorSchemeButtonEventHandler, 0.45f, TEXT_ANCHOR_MID_RIGHT)
-		|| !m_UIButton[SETTINGS_UI_BUTTON_RESOLUTION].Create("screen resolution", font, textc, selectorc, renderer,
+		|| !m_UIButton[SETTINGS_UI_BUTTON_RESOLUTION].Create("屏幕分辨率", font, textc, selectorc, renderer,
 			0.46875f, 0.53125f, true, SettingResolutionButtonEventHandler, 0.45f, TEXT_ANCHOR_MID_RIGHT)
-		|| !m_UIButton[SETTINGS_UI_BUTTON_FULLSCREEN].Create("fullscreen", font, textc, selectorc, renderer,
+		|| !m_UIButton[SETTINGS_UI_BUTTON_FULLSCREEN].Create("全屏模式", font, textc, selectorc, renderer,
 			0.46875f, 0.65625f, true, SettingFullscreenButtonEventHandler, 0.45f, TEXT_ANCHOR_MID_RIGHT))
 	{
 		return false;

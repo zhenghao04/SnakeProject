@@ -22,7 +22,7 @@ public:
 	Texture();
 	~Texture();
 
-	bool Create(char *text, TTF_Font *font, SDL_Color *rgba, SDL_Renderer *renderer);
+	bool Create(const char *text, TTF_Font *font, SDL_Color *rgba, SDL_Renderer *renderer);
 	bool GetDimensions(int *w, int *h);
 
 	void Render(SDL_Renderer *renderer, SDL_Rect *dst);
@@ -41,11 +41,11 @@ public:
 
 class UILabel : public UIWidget {
 public:
-	bool Create(char *text, TTF_Font *font, SDL_Color *rgba, SDL_Renderer *renderer,
+	bool Create(const char *text, TTF_Font *font, SDL_Color *rgba, SDL_Renderer *renderer,
 		float x, float y, bool isVisible,
 		float scaleFactor = 1, TextAnchor anchor = TEXT_ANCHOR_CENTER);
 
-	void SetText(char *text, TTF_Font *font);
+	void SetText(const char *text, TTF_Font *font);
 	void SetVisibility(bool isVisible);
 
 	/* false, if dimensions are not updated */
@@ -75,7 +75,7 @@ typedef UILayout* (*pfnButtonEventHandler)(SDL_Event *event, GameScreen **newScr
 
 class UIButton : public UIWidget {
 public:
-	bool Create(char *text, TTF_Font *font, SDL_Color *rgbaText, SDL_Color *rgbaSelector,
+	bool Create(const char *text, TTF_Font *font, SDL_Color *rgbaText, SDL_Color *rgbaSelector,
 		SDL_Renderer *renderer, float x, float y,
 		bool isVisible, pfnButtonEventHandler eventHandler,
 		float scaleFactor = 1, TextAnchor anchor = TEXT_ANCHOR_CENTER);
@@ -83,7 +83,7 @@ public:
 	UILayout* HandleInput(SDL_Event *event, GameScreen **newScreen, void *userData);
 	void Render(SDL_Renderer *renderer);
 
-	void SetText(char *text, TTF_Font *font);
+	void SetText(const char *text, TTF_Font *font);
 	void SetVisibility(bool isVisible);
 	bool IsVisible();
 	void Select(bool isSelected);

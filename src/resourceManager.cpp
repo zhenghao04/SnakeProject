@@ -2,7 +2,13 @@
 #include "utilities.h"
 #include <Windows.h>
 
-const char *PATH_FONT = "assets\\FFFFORWA.TTF";
+static const char *FONT_PATHS[] = {
+	"assets\\NotoSansSC-VF.ttf",
+	"C:\\Windows\\Fonts\\msyh.ttc",
+	"C:\\Windows\\Fonts\\simhei.ttf",
+	"C:\\Windows\\Fonts\\simsun.ttc",
+	"assets\\FFFFORWA.TTF"
+};
 const char *PATH_COLOR_SCHEME = "assets\\colorScheme.ini";
 
 ColorScheme DEFAULT_COLOR_SCHEME = {
@@ -70,14 +76,18 @@ ColorScheme* ResourceManager::FindColorScheme(char *name)
 
 bool ResourceManager::LoadFont()
 {
-	m_Font = TTF_OpenFont(PATH_FONT, 60);
-	if (!m_Font)
+	for (size_t i = 0; i < sizeof(FONT_PATHS) / sizeof(FONT_PATHS[0]); i++)
 	{
-		LOG_ERR("Failed to load font! SDL_ttf Error: %s", TTF_GetError());
-		return false;
+		m_Font = TTF_OpenFont(FONT_PATHS[i], 60);
+		if (m_Font)
+		{
+			LOG_INFO("Loaded font: %s", FONT_PATHS[i]);
+			return true;
+		}
 	}
 
-	return true;
+	LOG_ERR("Failed to load font! SDL_ttf Error: %s", TTF_GetError());
+	return false;
 }
 
 enum ColorSchemeIniKeys

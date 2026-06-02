@@ -1,5 +1,6 @@
 #include "globals.h"
 #include <ctime>
+#include <cstring>
 
 FILE *Globals::LOG = stderr;
 char Globals::ASCII_TIME[128] = "\0";
@@ -54,4 +55,22 @@ char* Globals::ChangeColorScheme(bool prev)
 		COLOR_SCHEME->m_NextScheme;
 
 	return COLOR_SCHEME->m_Name;
+}
+
+const char* Globals::ColorSchemeDisplayName(const char *name)
+{
+	if (!strcmp(name, "classic grey"))
+	{
+		return "经典灰";
+	}
+	if (!strcmp(name, "blue moon"))
+	{
+		return "蓝月";
+	}
+	if (!strcmp(name, "red alert"))
+	{
+		return "红色警报";
+	}
+
+	return name;
 }

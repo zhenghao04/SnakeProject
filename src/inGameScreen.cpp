@@ -6,10 +6,10 @@ void Scoreboard::Reset()
 {
 	m_GameMode = Globals::MODE;
 	m_Score = 0;
-	sprintf_s(m_ScoreText, "score: %03d", m_Score);
+	sprintf_s(m_ScoreText, "得分：%03d", m_Score);
 	
 	m_TimeLast = 0;
-	sprintf_s(m_DiemerText, "diemer: %03d", m_TimeLast / 1000);
+	sprintf_s(m_DiemerText, "倒计时：%03d", m_TimeLast / 1000);
 	m_TimerStopped = true;
 	m_TimerHandicap = (Globals::GRID_DIMENSION * 2 * 1000) / Globals::GAME_SPEED;
 	m_TimerHandicap = (m_TimerHandicap * 2) / 3;
@@ -27,7 +27,7 @@ void Scoreboard::Increment()
 	}
 
 	++m_Score;
-	sprintf_s(m_ScoreText, "score: %03d", m_Score);
+	sprintf_s(m_ScoreText, "得分：%03d", m_Score);
 }
 
 unsigned int Scoreboard::Score()
@@ -89,11 +89,11 @@ void Scoreboard::Update(uint32_t elapsed, EventBus *eventBus)
 		m_TimeLast -= elapsed;
 		if (m_TimeLast / 1000 > 999)
 		{
-			sprintf_s(m_DiemerText, "diemer: 999");
+			sprintf_s(m_DiemerText, "倒计时：999");
 		}
 		else
 		{
-			sprintf_s(m_DiemerText, "diemer: %03d", m_TimeLast >= 0 ? m_TimeLast / 1000 : 0);
+			sprintf_s(m_DiemerText, "倒计时：%03d", m_TimeLast >= 0 ? m_TimeLast / 1000 : 0);
 		}
 		if (m_TimeLast < 0)
 		{

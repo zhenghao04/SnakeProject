@@ -161,7 +161,7 @@ GameEvent MenuLayout::Update(uint32_t elapsed)
 	}
 
 	char *profileButtonLabel = profiles->GetCurrentProfileName();
-	m_UIButton[MENU_UI_BUTTON_PROFILE].SetText(profileButtonLabel ? profileButtonLabel : "create profile", font);
+	m_UIButton[MENU_UI_BUTTON_PROFILE].SetText(profileButtonLabel ? profileButtonLabel : "创建档案", font);
 
 	if ((m_Timer += elapsed) >= 5000)
 	{
@@ -197,7 +197,7 @@ bool MenuLayout::CreateLayout(SDL_Renderer *renderer)
 	float x = is4_3 ? 0.07f : 0.13f;
 	float scale = is4_3 ? 1.6f : 1.8f;
 
-	if (!m_UILabel[SLEEPING_MENU_UI_TITLE].Create("snake !", font, textc,
+	if (!m_UILabel[SLEEPING_MENU_UI_TITLE].Create("贪吃蛇！", font, textc,
 			renderer, x, 0.4f, true, scale, TEXT_ANCHOR_MID_LEFT))
 	{
 		return false;
@@ -205,19 +205,19 @@ bool MenuLayout::CreateLayout(SDL_Renderer *renderer)
 
 	x = is4_3 ? 0.82f : 0.75f;
 	
-	if (!m_UIButton[MENU_UI_BUTTON_RESUME].Create("resume", font, textc, selectorc, renderer,
+	if (!m_UIButton[MENU_UI_BUTTON_RESUME].Create("继续游戏", font, textc, selectorc, renderer,
 		x, 0.17f, false, MenuResumeButtonEventHandler, 0.42f)
-		|| !m_UIButton[MENU_UI_BUTTON_NEW_GAME].Create("new game", font, textc, selectorc, renderer,
+		|| !m_UIButton[MENU_UI_BUTTON_NEW_GAME].Create("新游戏", font, textc, selectorc, renderer,
 			x, 0.28f, true, MenuNewGameButtonEventHandler, 0.42f)
-		|| !m_UIButton[MENU_UI_BUTTON_PROFILE].Create("create profile", font, textc, selectorc, renderer,
+		|| !m_UIButton[MENU_UI_BUTTON_PROFILE].Create("创建档案", font, textc, selectorc, renderer,
 			x, 0.39f, true, MenuProfileButtonEventHandler, 0.42f)
-		|| !m_UIButton[MENU_UI_BUTTON_HIGH_SCORES].Create("high scores", font, textc, selectorc, renderer,
+		|| !m_UIButton[MENU_UI_BUTTON_HIGH_SCORES].Create("最高分", font, textc, selectorc, renderer,
 			x, 0.50f, true, nullptr, 0.42f)
-		|| !m_UIButton[MENU_UI_BUTTON_SETTINGS].Create("settings", font, textc, selectorc, renderer,
+		|| !m_UIButton[MENU_UI_BUTTON_SETTINGS].Create("设置", font, textc, selectorc, renderer,
 			x, 0.61f, true, MenuSettingsButtonEventHandler, 0.42f)
-		|| !m_UIButton[MENU_UI_BUTTON_CREDITS].Create("credits", font, textc, selectorc, renderer,
+		|| !m_UIButton[MENU_UI_BUTTON_CREDITS].Create("制作人员", font, textc, selectorc, renderer,
 			x, 0.72f, true, nullptr, 0.42f)
-		|| !m_UIButton[MENU_UI_BUTTON_EXIT].Create("exit", font, textc, selectorc, renderer,
+		|| !m_UIButton[MENU_UI_BUTTON_EXIT].Create("退出", font, textc, selectorc, renderer,
 			x, 0.83f, true, MenuExitButtonEventHandler, 0.42f))
 	{
 		return false;

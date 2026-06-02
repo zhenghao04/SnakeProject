@@ -59,4 +59,5 @@ namespace Globals
 	char* Time();
 
 	char* ChangeColorScheme(bool prev);
+	const char* ColorSchemeDisplayName(const char *name);
 }

@@ -102,7 +102,7 @@ void Game::Initialize()
 
 	uint32_t flags = SDL_WINDOW_SHOWN;
 	flags |= (Globals::FULLSCREEN) ? SDL_WINDOW_FULLSCREEN : 0;
-	m_Window = SDL_CreateWindow("snake!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+	m_Window = SDL_CreateWindow("贪吃蛇", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 					Globals::SCREEN_WIDTH, Globals::SCREEN_HEIGHT, flags);
 	if (!m_Window)
 	{

@@ -2,7 +2,7 @@
 
 **snake1** 是一款使用 _C++_ 编写、以 _SDL2_ 作为多媒体后端的经典贪吃蛇游戏。
 
-<img src="https://habrastorage.org/webt/or/6-/_n/or6-_nko4hgztmhihnkxjw01e1e.gif" />
+<img src="docs/demo.gif" alt="SnakeProject 最新演示" />
 
 ## 功能特点
 

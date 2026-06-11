@@ -1,10 +1,13 @@
 #pragma once
 #include "uiLayout.h"
 #include "uiWidget.h"
+#include <cstdint>
 
 enum InGameUILabel
 {
 	IN_GAME_UI_LABEL_DIE_MESSAGE = 0,
+	IN_GAME_UI_LABEL_SCORE_SUMMARY,
+	IN_GAME_UI_LABEL_RECORD_MESSAGE,
 	IN_GAME_UI_LABEL_TRY_AGAIN,
 	IN_GAME_UI_LABEL_TOTAL
 };
@@ -30,7 +33,7 @@ public:
 	bool CreateLayout(SDL_Renderer *renderer);
 	void DestroyLayout();
 
-	void SnakeDied(int score);
+	void SnakeDied(int score, int rank, uint32_t bestScore, GameMode mode);
 
 private:
 	SDL_Rect m_DialogFrame;

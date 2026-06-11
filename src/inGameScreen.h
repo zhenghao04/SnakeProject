@@ -14,6 +14,7 @@ public:
 	Scoreboard() :
 		m_GameMode(GAME_MODE_TRAINING),
 		m_Score(0),
+		m_ScoreSaved(false),
 		m_TimeLast(0),
 		m_TimerStopped(true),
 		m_TimerHandicap(5000)
@@ -31,11 +32,14 @@ public:
 	void Stop();
 	
 private:
+	void FinishGame();
+
 	GameMode m_GameMode;
 
 	/* scoring */
 	uint32_t m_Score;
 	char m_ScoreText[32];
+	bool m_ScoreSaved;
 
 	/* timing for survival mode */
 	bool m_TimerStopped;

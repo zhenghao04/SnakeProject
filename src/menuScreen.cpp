@@ -12,7 +12,7 @@ MenuScreen::MenuScreen()
 	m_CurrentLayout = &Globals::sleepingMenuLayout;
 	m_Demo.Initilaize(HandleInputDemo, HandleCollisionsDemo, RenderDemo, true,
 		(uint32_t)(50 * (Globals::ASPECT_RATIO == ASPECT_RATIO_4_3 ? 1.33f : 1.78f)), 50,
-		30, 10, true);
+		30, 10, true, GAME_MODE_TRAINING);
 }
 
 void MenuScreen::Enter(GameEvent event)

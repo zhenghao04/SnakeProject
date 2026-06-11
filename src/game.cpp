@@ -33,6 +33,11 @@ ProfileManager& Game::Profiles()
 	return m_ProfileManager;
 }
 
+HighScoreManager& Game::HighScores()
+{
+	return m_HighScoreManager;
+}
+
 void Game::Initialize()
 {
 	LOG_INFO("Initializing SDL...");
@@ -85,6 +90,13 @@ void Game::Initialize()
 		CRASH(ExitCallback);
 	}
 	LOG_INFO("Reading settings...OK");
+
+	LOG_INFO("Loading high scores...");
+	if (!m_HighScoreManager.Load())
+	{
+		LOG_WARN("Unable to load high scores, starting with an empty leaderboard");
+	}
+	LOG_INFO("Loading high scores...OK");
 
 	LOG_INFO("Creating window...");
 	SDL_DisplayMode target, matching;
@@ -226,6 +238,7 @@ bool Game::RebuidUI()
 		|| !Globals::sleepingMenuLayout.CreateLayout(m_Renderer)
 		|| !Globals::inGameLayout.CreateLayout(m_Renderer)
 		|| !Globals::gameOverLayout.CreateLayout(m_Renderer)
+		|| !Globals::highScoresLayout.CreateLayout(m_Renderer)
 		|| !Globals::settingsLayout.CreateLayout(m_Renderer)
 		|| !Globals::newGameLayout.CreateLayout(m_Renderer)
 		|| !Globals::profileLayout.CreateLayout(m_Renderer))
@@ -477,6 +490,7 @@ int Game::Quit()
 	Globals::sleepingMenuLayout.DestroyLayout();
 	Globals::inGameLayout.DestroyLayout();
 	Globals::gameOverLayout.DestroyLayout();
+	Globals::highScoresLayout.DestroyLayout();
 	Globals::settingsLayout.DestroyLayout();
 	Globals::newGameLayout.DestroyLayout();
 	Globals::profileLayout.DestroyLayout();

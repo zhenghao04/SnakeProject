@@ -7,6 +7,7 @@
 #include "inGameScreen.h"
 #include "inGameLayout.h"
 #include "gameOverLayout.h"
+#include "highScoresLayout.h"
 #include "newGameLayout.h"
 #include "colorScheme.h"
 #include <cstdint>
@@ -52,6 +53,7 @@ namespace Globals
 	extern SleepingMenuLayout sleepingMenuLayout;
 	extern InGameLayout inGameLayout;
 	extern GameOverLayout gameOverLayout;
+	extern HighScoresLayout highScoresLayout;
 	extern NewGameLayout newGameLayout;
 	extern SettingsLayout settingsLayout;
 	extern ProfileLayout profileLayout;
@@ -60,4 +62,5 @@ namespace Globals
 
 	char* ChangeColorScheme(bool prev);
 	const char* ColorSchemeDisplayName(const char *name);
+	const char* GameModeDisplayName(GameMode mode);
 }

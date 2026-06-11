@@ -6,6 +6,7 @@ void Scoreboard::Reset()
 {
 	m_GameMode = Globals::MODE;
 	m_Score = 0;
+	m_ScoreSaved = false;
 	sprintf_s(m_ScoreText, "得分：%03d", m_Score);
 	
 	m_TimeLast = 0;
@@ -38,6 +39,21 @@ unsigned int Scoreboard::Score()
 void Scoreboard::Stop()
 {
 	m_TimerStopped = true;
+}
+
+void Scoreboard::FinishGame()
+{
+	if (m_ScoreSaved)
+	{
+		return;
+	}
+
+	char *profileName = Game::Instance().Profiles().GetCurrentProfileName();
+	int rank = Game::Instance().HighScores().AddScore(m_GameMode, m_Score, profileName ? profileName : "玩家");
+	uint32_t bestScore = Game::Instance().HighScores().BestScore(m_GameMode);
+
+	Globals::gameOverLayout.SnakeDied(m_Score, rank, bestScore, m_GameMode);
+	m_ScoreSaved = true;
 }
 
 void Scoreboard::Render(SDL_Renderer *renderer, SDL_Rect *viewport)
@@ -75,7 +91,7 @@ void Scoreboard::Update(uint32_t elapsed, EventBus *eventBus)
 		{
 			case INGAME_EVENT_SNAKE_DIED:
 				Stop();
-				Globals::gameOverLayout.SnakeDied(m_Score);
+				FinishGame();
 				break;
 
 			case INGAME_EVENT_SNAKE_GROWN:
@@ -98,7 +114,7 @@ void Scoreboard::Update(uint32_t elapsed, EventBus *eventBus)
 		if (m_TimeLast < 0)
 		{
 			Game::Instance().Events().PostInGameEvent(INGAME_EVENT_SNAKE_DIED, IN_GAME_EVENT_SOURCE_SCOREBOARD);
-			Globals::gameOverLayout.SnakeDied(m_Score);
+			FinishGame();
 			m_TimerStopped = true;
 		}
 	}
@@ -111,7 +127,7 @@ InGameScreen::InGameScreen()
 
 	m_Field.Initilaize(HandleInputInGame, HandleCollisionsInGame,
 				RenderInGame, false, Globals::GRID_DIMENSION, Globals::GRID_DIMENSION,
-				Globals::GAME_SPEED, Globals::BODY_SIZE, Globals::BORDERLESS);
+				Globals::GAME_SPEED, Globals::BODY_SIZE, Globals::BORDERLESS, Globals::MODE);
 }
 
 void InGameScreen::Enter(GameEvent event)
@@ -263,7 +279,7 @@ void InGameScreen::Render(SDL_Renderer *renderer)
 void InGameScreen::Restart()
 {
 	m_Field.Reconfigure(Globals::GRID_DIMENSION, Globals::GRID_DIMENSION,
-		false, Globals::GAME_SPEED, Globals::BODY_SIZE, Globals::BORDERLESS, false);
+		false, Globals::GAME_SPEED, Globals::BODY_SIZE, Globals::BORDERLESS, Globals::MODE, false);
 
 	m_Scoreboard.Reset();
 	m_Field.Reset();

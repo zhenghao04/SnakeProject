@@ -132,22 +132,24 @@ bool GameOverLayout::CreateLayout(SDL_Renderer *renderer)
 	SDL_Color *textc = &Globals::COLOR_SCHEME->m_Text;
 	SDL_Color *selectorc = &Globals::COLOR_SCHEME->m_ButtonSelector;
 
-	if (!m_UILabel[IN_GAME_UI_LABEL_DIE_MESSAGE].Create(dieMessage[0], font, textc, renderer, 0.5f, 0.6875f, true, 0.42f)
-		|| !m_UILabel[IN_GAME_UI_LABEL_TRY_AGAIN].Create("再试一次？", font, textc, renderer, 0.5f, 0.7875f, true, 0.42f))
+	if (!m_UILabel[IN_GAME_UI_LABEL_DIE_MESSAGE].Create(dieMessage[0], font, textc, renderer, 0.5f, 0.6725f, true, 0.38f)
+		|| !m_UILabel[IN_GAME_UI_LABEL_SCORE_SUMMARY].Create("本局：000  最高：000", font, textc, renderer, 0.5f, 0.735f, true, 0.32f)
+		|| !m_UILabel[IN_GAME_UI_LABEL_RECORD_MESSAGE].Create("继续挑战排行榜", font, textc, renderer, 0.5f, 0.7825f, true, 0.32f)
+		|| !m_UILabel[IN_GAME_UI_LABEL_TRY_AGAIN].Create("再试一次？", font, textc, renderer, 0.5f, 0.8325f, true, 0.36f))
 	{
 		return false;
 	}
 	if (!m_UIButton[IN_GAME_UI_BUTTON_YES].Create("是", font, textc, selectorc, renderer,
-		0.45f, 0.8875f, true, InGameYesButtonEventHandler, 0.47f, TEXT_ANCHOR_MID_RIGHT)
+		0.45f, 0.91f, true, InGameYesButtonEventHandler, 0.43f, TEXT_ANCHOR_MID_RIGHT)
 		|| !m_UIButton[IN_GAME_UI_BUTTON_NO].Create("否", font, textc, selectorc, renderer,
-			0.56f, 0.8875f, true, InGameNoButtonEventHandler, 0.47f, TEXT_ANCHOR_MID_LEFT))
+			0.56f, 0.91f, true, InGameNoButtonEventHandler, 0.43f, TEXT_ANCHOR_MID_LEFT))
 	{
 		return false;
 	}
 	m_UIButton[m_SelectedButton].Select(true);
 
-	m_DialogFrame.y = (Globals::SCREEN_HEIGHT * 5) / 8;
-	m_DialogFrame.h = (Globals::SCREEN_HEIGHT * 5) / 16;
+	m_DialogFrame.y = (Globals::SCREEN_HEIGHT * 3) / 5;
+	m_DialogFrame.h = (Globals::SCREEN_HEIGHT * 7) / 20;
 
 	SDL_Rect dim;
 	m_UILabel[IN_GAME_UI_LABEL_DIE_MESSAGE].GetDimensions(&dim);
@@ -159,9 +161,11 @@ void GameOverLayout::DestroyLayout()
 {
 }
 
-void GameOverLayout::SnakeDied(int score)
+void GameOverLayout::SnakeDied(int score, int rank, uint32_t bestScore, GameMode mode)
 {
 	TTF_Font *font = Game::Instance().Resources().GetFont();
+	char scoreSummary[128];
+	char recordMessage[64];
 
 	if (score < 50)
 	{
@@ -175,4 +179,18 @@ void GameOverLayout::SnakeDied(int score)
 	{
 		m_UILabel[IN_GAME_UI_LABEL_DIE_MESSAGE].SetText(dieMessage[Utilities::Random(CONGRATZ, DIE_MESSAGES_TOTAL - 1)], font);
 	}
+
+	sprintf_s(scoreSummary, "本局：%03d  最高：%03u  模式：%s",
+		score, bestScore, Globals::GameModeDisplayName(mode));
+	m_UILabel[IN_GAME_UI_LABEL_SCORE_SUMMARY].SetText(scoreSummary, font);
+
+	if (rank > 0)
+	{
+		sprintf_s(recordMessage, "新纪录！排行榜第 %d 名", rank);
+	}
+	else
+	{
+		sprintf_s(recordMessage, "继续挑战排行榜");
+	}
+	m_UILabel[IN_GAME_UI_LABEL_RECORD_MESSAGE].SetText(recordMessage, font);
 }

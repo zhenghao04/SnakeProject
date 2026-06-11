@@ -1,6 +1,7 @@
 #pragma once
 #include "resourceManager.h"
 #include "profileManager.h"
+#include "highScoreManager.h"
 #include "gameScreen.h"
 #include "eventBus.h"
 #include <SDL.h>
@@ -16,6 +17,7 @@ public:
 	ResourceManager& Resources();
 	EventBus& Events();
 	ProfileManager& Profiles();
+	HighScoreManager& HighScores();
 
 	/**
 	 * Initialize subsystems.
@@ -66,6 +68,9 @@ private:
 
 	/* profiles */
 	ProfileManager m_ProfileManager;
+
+	/* high scores */
+	HighScoreManager m_HighScoreManager;
 
 	/* event bus */
 	EventBus m_EventBus;

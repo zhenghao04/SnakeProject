@@ -34,6 +34,7 @@ MenuLayout Globals::menuLayout;
 SleepingMenuLayout Globals::sleepingMenuLayout;
 InGameLayout Globals::inGameLayout;
 GameOverLayout Globals::gameOverLayout;
+HighScoresLayout Globals::highScoresLayout;
 SettingsLayout Globals::settingsLayout;
 NewGameLayout Globals::newGameLayout;
 ProfileLayout Globals::profileLayout;
@@ -73,4 +74,22 @@ const char* Globals::ColorSchemeDisplayName(const char *name)
 	}
 
 	return name;
+}
+
+const char* Globals::GameModeDisplayName(GameMode mode)
+{
+	switch (mode)
+	{
+		case GAME_MODE_TRAINING:
+			return "训练";
+
+		case GAME_MODE_SURVIVAL:
+			return "生存";
+
+		case GAME_MODE_OBSTACLE:
+			return "障碍";
+
+		default:
+			return "未知";
+	}
 }

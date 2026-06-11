@@ -16,7 +16,7 @@ GameField::~GameField()
 
 void GameField::Initilaize(pfnHandleInput HandleInput, pfnHandleCollisions handleCollisions, pfnRender render,
 		bool stretch, uint32_t gridDimensionX, uint32_t gridDimensionY,
-		int speed, int startBodySize, bool borderless)
+		int speed, int startBodySize, bool borderless, GameMode gameMode)
 {
 	m_HandleInput = HandleInput;
 	m_HandleCollisions = handleCollisions;
@@ -29,10 +29,11 @@ void GameField::Initilaize(pfnHandleInput HandleInput, pfnHandleCollisions handl
 	m_GameSpeed = speed;
 	m_StartBodySize = startBodySize;
 	m_IsBorderless = borderless;
+	m_GameMode = gameMode;
 }
 
 void GameField::Reconfigure(uint32_t gridDimensionX, uint32_t gridDimensionY,
-		bool stretch, int speed, int startBodySize, bool borderless, bool justResize)
+		bool stretch, int speed, int startBodySize, bool borderless, GameMode gameMode, bool justResize)
 {
 	if (m_GridDimensionX != gridDimensionX
 		|| m_GridDimensionY != gridDimensionY
@@ -43,6 +44,7 @@ void GameField::Reconfigure(uint32_t gridDimensionX, uint32_t gridDimensionY,
 	m_GameSpeed = speed;
 	m_StartBodySize = startBodySize;
 	m_IsBorderless = borderless;
+	m_GameMode = gameMode;
 }
 
 void GameField::Resize(uint32_t gridDimensionX, uint32_t gridDimensionY, bool stretch, bool justResize)
@@ -126,6 +128,7 @@ void GameField::Update(uint32_t elapsed, EventBus *eventBus)
 	if (!m_Snake.IsAlive())
 	{
 		SpawnSnake();
+		SpawnObstacles();
 		if (!m_Food.IsAlive())
 		{
 			SpawnFood();
@@ -270,6 +273,37 @@ void GameField::SpawnFood()
 	m_Grid[(m_GridDimensionY * m_Food.PosX()) + m_Food.PosY()].m_State = CELL_STATE_FOOD;
 }
 
+void GameField::SpawnObstacles()
+{
+	if (m_GameMode != GAME_MODE_OBSTACLE)
+	{
+		return;
+	}
+
+	int targetCount = (m_GridDimensionX * m_GridDimensionY) / 32;
+	targetCount = targetCount < 12 ? 12 : targetCount;
+	targetCount = targetCount > 80 ? 80 : targetCount;
+
+	for (int i = 0; i < targetCount; i++)
+	{
+		int tries = 0;
+		int x = 0;
+		int y = 0;
+
+		do
+		{
+			x = Utilities::Random(0, m_GridDimensionX - 1);
+			y = Utilities::Random(0, m_GridDimensionY - 1);
+			tries++;
+		} while (tries < 200 && m_Grid[(m_GridDimensionY * x) + y].m_State != CELL_STATE_EMPTY);
+
+		if (m_Grid[(m_GridDimensionY * x) + y].m_State == CELL_STATE_EMPTY)
+		{
+			m_Grid[(m_GridDimensionY * x) + y].m_State = CELL_STATE_OBSTACLE;
+		}
+	}
+}
+
 void GameField::RecalculateField(bool clear)
 {
 	for (uint32_t i = 0; i < m_GridDimensionX; i++)
@@ -320,6 +354,7 @@ InGameEvent HandleCollisionsInGame(GameField *_this)
 			return INGAME_EVENT_NOTHING_HAPPENS;
 
 		case CELL_STATE_SNAKE:
+		case CELL_STATE_OBSTACLE:
 			if (!_this->m_Snake.IsStoped())
 			{
 				_this->m_Snake.Stop();
@@ -335,6 +370,10 @@ InGameEvent HandleCollisionsInGame(GameField *_this)
 			_this->m_Grid[headCellIndex].m_State = CELL_STATE_SNAKE;
 			
 			_this->m_Snake.Grow(_this->m_GridDimensionX, _this->m_GridDimensionY);
+			if (_this->m_GameMode == GAME_MODE_SURVIVAL && _this->m_GameSpeed < 100)
+			{
+				_this->m_GameSpeed++;
+			}
 			if (!_this->m_IsBorderless && _this->m_Snake.IsCrossedTheBound())
 			{
 				if (!_this->m_Snake.IsStoped())
@@ -364,6 +403,7 @@ void RenderInGame(GameField *_this, SDL_Renderer *renderer)
 	SDL_Color emptyc = Globals::COLOR_SCHEME->m_CellEmpty;
 	SDL_Color snakec = Globals::COLOR_SCHEME->m_CellSnake;
 	SDL_Color foodc = Globals::COLOR_SCHEME->m_CellFood;
+	SDL_Color obstaclec = Globals::COLOR_SCHEME->m_Border;
 	
 	if (!_this->m_IsBorderless)
 	{
@@ -394,6 +434,10 @@ void RenderInGame(GameField *_this, SDL_Renderer *renderer)
 					break;
 				case CELL_STATE_FOOD:
 					SDL_SetRenderDrawColor(renderer, foodc.r, foodc.g, foodc.b, foodc.a);
+					SDL_RenderFillRect(renderer, &_this->m_Grid[row + j].m_Rect);
+					break;
+				case CELL_STATE_OBSTACLE:
+					SDL_SetRenderDrawColor(renderer, obstaclec.r, obstaclec.g, obstaclec.b, obstaclec.a);
 					SDL_RenderFillRect(renderer, &_this->m_Grid[row + j].m_Rect);
 					break;
 				default:

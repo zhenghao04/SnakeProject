@@ -2,6 +2,7 @@
 #include "snake.h"
 #include "food.h"
 #include "eventBus.h"
+#include "gameScreen.h"
 #include <SDL.h>
 #include <cstdint>
 #include <queue>
@@ -11,6 +12,7 @@ enum CellState
 	CELL_STATE_EMPTY = 0,
 	CELL_STATE_SNAKE,
 	CELL_STATE_FOOD,
+	CELL_STATE_OBSTACLE,
 };
 
 struct FieldCell {
@@ -38,6 +40,7 @@ public:
 		m_GameSpeed(30),
 		m_Elapsed(0),
 		m_StartBodySize(10),
+		m_GameMode(GAME_MODE_TRAINING),
 		m_IsBorderless(true),
 		m_ShouldStop(false)
 	{};
@@ -45,9 +48,9 @@ public:
 
 	void Initilaize(pfnHandleInput HandleInput, pfnHandleCollisions handleCollisions, pfnRender render,
 			bool stretch, uint32_t gridDimensionX, uint32_t gridDimensionY,
-			int speed, int startBodySize, bool borderless);
+			int speed, int startBodySize, bool borderless, GameMode gameMode);
 	void Reconfigure(uint32_t gridDimensionX, uint32_t gridDimensionY,
-			bool stretch, int speed, int startBodySize, bool borderless, bool justResize);
+			bool stretch, int speed, int startBodySize, bool borderless, GameMode gameMode, bool justResize);
 	void Resize(uint32_t gridDimensionX, uint32_t gridDimensionY, bool stretch, bool justResize);
 
 	void HandleInput(SDL_Event *event);
@@ -96,6 +99,8 @@ private:
 	
 	int m_StartBodySize;
 
+	GameMode m_GameMode;
+
 	bool m_IsBorderless;
 
 	bool m_ShouldStop;
@@ -107,5 +112,6 @@ private:
 
 	void SpawnSnake();
 	void SpawnFood();
+	void SpawnObstacles();
 	void RecalculateField(bool clear);
 };

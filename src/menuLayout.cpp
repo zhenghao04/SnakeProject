@@ -82,6 +82,25 @@ static UILayout* MenuProfileButtonEventHandler(SDL_Event *event, GameScreen **ne
 	return newLayout;
 }
 
+static UILayout* MenuHighScoresButtonEventHandler(SDL_Event *event, GameScreen **newScreen, void *userData)
+{
+	UILayout *newLayout = nullptr;
+
+	if (event->type == SDL_KEYUP)
+	{
+		switch (event->key.keysym.sym)
+		{
+			case SDLK_RETURN:
+			case SDLK_SPACE:
+				Globals::highScoresLayout.Enter();
+				newLayout = &Globals::highScoresLayout;
+				break;
+		}
+	}
+
+	return newLayout;
+}
+
 static UILayout* MenuExitButtonEventHandler(SDL_Event *event, GameScreen **newScreen, void *userData)
 {
 	MenuButtonEvenHandlersData *data = (MenuButtonEvenHandlersData*)userData;
@@ -214,7 +233,7 @@ bool MenuLayout::CreateLayout(SDL_Renderer *renderer)
 		|| !m_UIButton[MENU_UI_BUTTON_PROFILE].Create("创建档案", font, textc, selectorc, renderer,
 			x, 0.39f, true, MenuProfileButtonEventHandler, 0.42f)
 		|| !m_UIButton[MENU_UI_BUTTON_HIGH_SCORES].Create("最高分", font, textc, selectorc, renderer,
-			x, 0.50f, true, nullptr, 0.42f)
+			x, 0.50f, true, MenuHighScoresButtonEventHandler, 0.42f)
 		|| !m_UIButton[MENU_UI_BUTTON_SETTINGS].Create("设置", font, textc, selectorc, renderer,
 			x, 0.61f, true, MenuSettingsButtonEventHandler, 0.42f)
 		|| !m_UIButton[MENU_UI_BUTTON_CREDITS].Create("制作人员", font, textc, selectorc, renderer,

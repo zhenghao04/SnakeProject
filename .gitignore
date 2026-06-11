@@ -5,6 +5,7 @@ MSVS/Debug/
 MSVS/Release/
 MSVS/x64/
 MSVS/snake1/
+dist/
 
 # Runtime-created local settings
 MSVS/user/

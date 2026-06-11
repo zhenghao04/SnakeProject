@@ -249,6 +249,7 @@ GameEvent NewGameLayout::Update(uint32_t elapsed)
 
 	m_UILabel[NEW_GAME_UI_LABEL_TRAINING].SetVisibility(m_Settings.m_Mode == GAME_MODE_TRAINING ? true : false);
 	m_UILabel[NEW_GAME_UI_LABEL_SURVIVAL].SetVisibility(m_Settings.m_Mode == GAME_MODE_SURVIVAL ? true : false);
+	m_UILabel[NEW_GAME_UI_LABEL_OBSTACLE].SetVisibility(m_Settings.m_Mode == GAME_MODE_OBSTACLE ? true : false);
 
 	m_UILabel[NEW_GAME_UI_LABEL_BORDERLESS].SetVisibility(m_Settings.m_IsBorderless);
 	m_UILabel[NEW_GAME_UI_LABEL_NOT_BORDERLESS].SetVisibility(!m_Settings.m_IsBorderless);
@@ -288,6 +289,8 @@ bool NewGameLayout::CreateLayout(SDL_Renderer *renderer)
 		|| !m_UILabel[NEW_GAME_UI_LABEL_TRAINING].Create("训练", font, textc, renderer,
 			0.53125f, (float)9 / 32, false, 0.45f, TEXT_ANCHOR_MID_LEFT)
 		|| !m_UILabel[NEW_GAME_UI_LABEL_SURVIVAL].Create("生存", font, textc, renderer,
+			0.53125f, (float)9 / 32, false, 0.45f, TEXT_ANCHOR_MID_LEFT)
+		|| !m_UILabel[NEW_GAME_UI_LABEL_OBSTACLE].Create("障碍", font, textc, renderer,
 			0.53125f, (float)9 / 32, false, 0.45f, TEXT_ANCHOR_MID_LEFT)
 		|| !m_UILabel[NEW_GAME_UI_LABEL_FIELD_SIZE].Create("40", font, textc, renderer,
 			0.53125f, (float)51 / 128, true, 0.45f, TEXT_ANCHOR_MID_LEFT)
